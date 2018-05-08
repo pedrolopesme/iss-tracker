@@ -11,25 +11,25 @@ import (
 const openNotifyEndpoint = "http://api.open-notify.org/iss-now.json"
 
 // ISS Position
-type issPosition struct {
-	latitude  float64 `json:"latitude"`
-	longitude float64 `json:"longitude"`
+type IssPosition struct {
+	Latitude  string `json:"latitude"`
+	Longitude string `json:"longitude"`
 }
 
 // OpenNotify Response
 // More at open-notify.org/Open-Notify-API/ISS-Location-Now/
-type openNotifyResponse struct {
-	message     string      `json:"message"`
-	timestamp   int         `json:"timestamp"`
-	issPosition issPosition `json:"iss_position"`
+type OpenNotifyResponse struct {
+	Message     string      `json:"message"`
+	Timestamp   int         `json:"timestamp"`
+	IssPosition IssPosition `json:"iss_position"`
 }
 
-func main() {
+// getISSCoordinate get satellite coordinate relative to Earth
+func getISSCoordinate() (position IssPosition, err error) {
 
 	// Build the request to OpenNotify
 	req, err := http.NewRequest("GET", openNotifyEndpoint, nil)
 	if err != nil {
-		log.Fatal("NewRequest: ", err)
 		return
 	}
 
@@ -39,19 +39,32 @@ func main() {
 	// Making the request
 	httpResponse, err := client.Do(req)
 	if err != nil {
-		log.Fatal("Do: ", err)
+		return
 	}
 
 	// Closing Body when done reading
 	defer httpResponse.Body.Close()
 
 	// Fill the response from OpenNotify
-	var response openNotifyResponse
+	var response OpenNotifyResponse
 
 	// Decoding the response
-	if err := json.NewDecoder(httpResponse.Body).Decode(&response); err != nil {
-		log.Println(err)
+	if err = json.NewDecoder(httpResponse.Body).Decode(&response); err != nil {
+		return
 	}
 
-	fmt.Println(response)
+	position = response.IssPosition
+	return
+
+}
+
+
+func main() {
+
+	// Retrieving coordinate
+	issCoordinate, err := getISSCoordinate()
+	if err != nil {
+		log.Fatal("getISSCoordinate: ", err)
+	}
+	fmt.Println(issCoordinate)
 }
