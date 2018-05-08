@@ -3,6 +3,13 @@ package iss
 import (
 	"net/http"
 	"encoding/json"
+	"github.com/pkg/errors"
+)
+
+// Errors
+var (
+	// ErrOpenNotifyDown is an error returned when it was impossible to connect open notify
+	ErrOpenNotifyDown = errors.New("open notify is down")
 )
 
 // Full endpoint URL
@@ -37,6 +44,12 @@ func GetCoordinate() (position IssPosition, err error) {
 	// Making the request
 	httpResponse, err := client.Do(req)
 	if err != nil {
+		return
+	}
+
+	// Check open notify status
+	if httpResponse.StatusCode != http.StatusOK {
+		err = ErrOpenNotifyDown
 		return
 	}
 
