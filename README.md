@@ -1,4 +1,4 @@
-<img src="https://cdn.rawgit.com/pedrolopesme/iss-notifier/docs/iss-notifier.png" alt="ISS Notifier" width="200">
+<img src="https://cdn.rawgit.com/pedrolopesme/iss-notifier/34ac93b7/docs/iss_notifier.png" alt="ISS Notifier" width="200">
 <h1 align="center">
      Iss Notifier
 </h1>
