@@ -3,7 +3,7 @@ package iss
 import (
 	"net/http"
 	"encoding/json"
-	"github.com/pkg/errors"
+	"errors"
 )
 
 // Errors
