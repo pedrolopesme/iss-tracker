@@ -16,7 +16,7 @@ More details about the project and its implementation soon.
  
  This project provides a Makefile with all common operations need to test and build to .
  
- * build: generates AWS binary file, compress it and move to /dist dir
+ * build-lambda: generates AWS binary file, compress it and move to /dist dir
  * test: runs all tests
  * fmt: runs gofmt for all go files
  
