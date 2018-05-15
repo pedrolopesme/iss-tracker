@@ -7,6 +7,14 @@ GOFMT=$(GOCMD)fmt
 BINARY_NAME=$(GOPATH)/bin/iss-notifier
 BINARY_UNIX=$(BINARY_NAME)_unix
 
+setup:
+	go get -u github.com/kardianos/govendor
+
+vendoring:
+	govendor remove +external
+	govendor add +external
+	govendor update +external
+
 build-lambda:
 	@echo "Building ISS Notifier for AWS Lambda"
 	GOOS=linux GOARCH=amd64 $(GOBUILD) -o main main.go
