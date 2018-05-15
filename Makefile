@@ -7,7 +7,7 @@ GOFMT=$(GOCMD)fmt
 BINARY_NAME=$(GOPATH)/bin/iss-notifier
 BINARY_UNIX=$(BINARY_NAME)_unix
 
-build: 
+build-lambda:
 	@echo "Building ISS Notifier for AWS Lambda"
 	GOOS=linux GOARCH=amd64 $(GOBUILD) -o main main.go
 	@zip main.zip main
