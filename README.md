@@ -20,7 +20,16 @@ More details about the project and its implementation soon.
  * test: runs all tests
  * fmt: runs gofmt for all go files
  
- 
+### AWS Credentials
+
+This application expects the default credential provider chain, as documented at
+http://docs.aws.amazon.com/sdk-for-go/api/aws/defaults/#CredChain. The default provider
+chain looks for credentials in the following order:
+
+* Environment variables.
+* Shared credentials file.
+* If your application is running on an Amazon EC2 instance, IAM role for Amazon EC2.
+
 ### License
  
  [MIT](LICENSE.md)
