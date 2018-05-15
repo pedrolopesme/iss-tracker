@@ -1,62 +1,60 @@
 package main
 
 import (
-	"log"
-	"fmt"
+	log "github.com/sirupsen/logrus"
 	"github.com/pedrolopesme/iss-notifier/iss"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sqs"
-	"github.com/aws/aws-sdk-go/aws"
+	"github.com/pedrolopesme/iss-notifier/sqs"
+	"fmt"
+	"github.com/aws/aws-sdk-go/service/lambda"
+	"os"
+	"github.com/pkg/errors"
 )
 
-func track() (iss.IssPosition, error) {
+const (
+	// URL to our queue
+	SQSEnvVar = "ISS_SQS_URL"
+)
+
+var (
+	// ErrSQSVarNotFound is returned when a ENV Var with ISS SQS URL wasn't found
+	ErrSQSVarNotFound = errors.New("Environment variable with ISS SQS URL not set. Please define a env var " + SQSEnvVar)
+)
+
+// Checks ISS Position and log it into an AWS SQS
+func Track() (message string, err error) {
+
+	// Retrieving ISS_SQS_URL from the ENV vars
+	queueURL := os.Getenv(SQSEnvVar)
+	if queueURL == "" {
+		err = ErrSQSVarNotFound
+		log.Error(err)
+		return
+	}
+
 	// Retrieving coordinate
 	issCoordinate, err := iss.GetCoordinate()
 	if err != nil {
-		log.Fatal("iss.GetCoordinate: ", err)
+		log.Error("It was impossible to collect satellite position", err)
+		return
 	}
-	//return fmt.Sprintf("%#v", issCoordinate), err
-	return issCoordinate, err
+
+	// Trying to enqueue to SQS
+	message, err = sqs.Enqueue(queueURL, issCoordinate)
+	if err != nil {
+		log.Error("It was impossible to enqueue the message", err)
+		return
+	}
+
+	log.Info(
+		fmt.Sprintf(
+			"Great, iss coordinate recorded! Message id %s, Latitude %s, Longitude %s",
+			message,
+			issCoordinate.Longitude,
+			issCoordinate.Latitude))
+
+	return
 }
 
 func main() {
-
-	issCoordinate, err := track()
-	if err  != nil {
-		return
-	}
-
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
-
-	svc := sqs.New(sess)
-
-	// URL to our queue
-	qURL := "https://sqs.us-east-1.amazonaws.com/183162777455/iss-positions"
-
-	result, err := svc.SendMessage(&sqs.SendMessageInput{
-		DelaySeconds: aws.Int64(10),
-		MessageAttributes: map[string]*sqs.MessageAttributeValue{
-			"Latitude": &sqs.MessageAttributeValue{
-				DataType:    aws.String("String"),
-				StringValue: aws.String(issCoordinate.Latitude),
-			},
-			"Longitude": &sqs.MessageAttributeValue{
-				DataType:    aws.String("String"),
-				StringValue: aws.String(issCoordinate.Longitude),
-			},
-		},
-		MessageBody: aws.String("Iss Coordinate"),
-		QueueUrl:    &qURL,
-	})
-
-	if err != nil {
-		fmt.Println("Error", err)
-		return
-	}
-
-	fmt.Println("Success", *result.MessageId)
-
-	//lambda.Start(track)
+	lambda.Start(Track)
 }
