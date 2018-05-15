@@ -12,11 +12,20 @@ about it.
 More details about the project and its implementation soon.
 
 
+### Dependency Manager
+
+This project uses govendor as default dependency manager. So, whenever you
+add or remove any dependency, you should do a `govendor add` or `govendor remove`.
+
+There is a task in the Makefile to simplify this: `make vendoring`. 
+
+
 ### Makefile
  
- This project provides a Makefile with all common operations need to test and build to .
+This project provides a Makefile with all common operations need to test and build to .
  
- * build-lambda: generates AWS binary file, compress it and move to /dist dir
+ * setup: installs govendor package
+ * vendoring: updates dependencies under vendor dir
  * test: runs all tests
  * fmt: runs gofmt for all go files
  
