@@ -30,6 +30,8 @@ chain looks for credentials in the following order:
 * Shared credentials file.
 * If your application is running on an Amazon EC2 instance, IAM role for Amazon EC2.
 
+This project does not contain any sensitve information hardcoded.
+
 ### License
  
  [MIT](LICENSE.md)
