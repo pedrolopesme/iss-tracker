@@ -1,7 +1,7 @@
 package sqs
 
 import (
-	"github.com/pedrolopesme/iss-notifier/iss"
+	"github.com/pedrolopesme/iss-tracker/iss"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/aws/aws-sdk-go/aws"
