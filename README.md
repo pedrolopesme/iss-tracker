@@ -1,9 +1,11 @@
 <h1 align="center">
     <img src="https://cdn.rawgit.com/pedrolopesme/iss-notifier/2e87fe31/docs/iss_notifier.png" alt="ISS Notifier" width="500">
-     <br /> ISS Notifier
+     <br /> ISS Tracker
 </h1>
 
-<h4 align="center"> An AWS Lambda function to notify when the International Space Station (ISS) pass over an Earth coordinate </h4>
+<h4 align="center"> 
+    An AWS Lambda function to track International Space Station (ISS) position 
+    and sent it to a SQS queue</h4>
 
 This project aims to create a serverless structure to detects whenever the ISS 
 pass over an Earth coordinate (i.e. latitude/longitude) and send notifications 
