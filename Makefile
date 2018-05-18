@@ -4,7 +4,7 @@ GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
 GOFMT=$(GOCMD)fmt
-BINARY_NAME=$(GOPATH)/bin/iss-notifier
+BINARY_NAME=$(GOPATH)/bin/iss-tracker
 BINARY_UNIX=$(BINARY_NAME)_unix
 
 setup:
@@ -16,14 +16,14 @@ vendoring:
 	govendor update +external
 
 build-lambda:
-	@echo "Building ISS Notifier for AWS Lambda"
+	@echo "Building ISS Tracker for AWS Lambda"
 	GOOS=linux GOARCH=amd64 $(GOBUILD) -o main main.go
 	@zip main.zip main
 	mv main.zip dist/main.zip
 	rm main
 
 test:
-	@echo "Running iss-notifier tests"
+	@echo "Running iss-tracker tests"
 	$(GOTEST) -v ./...
 
 fmt:
