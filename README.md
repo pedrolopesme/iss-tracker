@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="https://cdn.rawgit.com/pedrolopesme/iss-notifier/2e87fe31/docs/iss_notifier.png" alt="ISS Notifier" width="500">
+    <img src="https://cdn.rawgit.com/pedrolopesme/iss-tracker/cfe541a3/docs/iss_notifier.png" alt="ISS Notifier" width="500">
      <br /> ISS Tracker
 </h1>
 
