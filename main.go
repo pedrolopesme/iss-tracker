@@ -2,8 +2,8 @@ package main
 
 import (
 	log "github.com/sirupsen/logrus"
-	"github.com/pedrolopesme/iss-notifier/iss"
-	"github.com/pedrolopesme/iss-notifier/sqs"
+	"github.com/pedrolopesme/iss-tracker/iss"
+	"github.com/pedrolopesme/iss-tracker/sqs"
 	"fmt"
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"os"
