@@ -5,7 +5,24 @@
 
 <h4 align="center"> 
     An AWS Lambda function to track International Space Station (ISS) position 
-    and sent it to a SQS queue</h4>
+    and sent it to a SQS queue
+</h4>
+
+<p align="center">
+  <a href="https://travis-ci.org/pedrolopesme/iss-tracker"> 
+    <img src="https://api.travis-ci.org/pedrolopesme/iss-tracker.svg?branch=master" />
+  </a>
+  <a href="https://goreportcard.com/report/github.com/pedrolopesme/iss-tracker"> 
+    <img src="https://goreportcard.com/badge/github.com/pedrolopesme/iss-tracker" />
+  </a>
+  <a href="https://api.codeclimate.com/v1/badges/ee349b40b795f7286ec9/maintainability"> 
+    <img src="https://api.codeclimate.com/v1/badges/2623b16f41d3a69fba1c/maintainability" />
+  </a>
+  <a href="https://godoc.org/github.com/pedrolopesme/iss-tracker"> 
+    <img src="https://img.shields.io/badge/Check%20the-GoDocs-1f425f.svg" />
+  </a>
+</p>
+<br>
 
 This project aims to create a serverless structure to detects whenever the ISS 
 pass over an Earth coordinate (i.e. latitude/longitude) and send notifications 
