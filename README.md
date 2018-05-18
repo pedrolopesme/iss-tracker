@@ -9,6 +9,9 @@ This project aims to create a serverless structure to detects whenever the ISS
 pass over an Earth coordinate (i.e. latitude/longitude) and send notifications 
 about it.
 
+
+### Implementation
+
 More details about the project and its implementation soon.
 
 
@@ -29,7 +32,7 @@ This project provides a Makefile with all common operations need to test and bui
  * test: runs all tests
  * fmt: runs gofmt for all go files
  
-### AWS Credentials
+### Environment Vars
 
 This application expects the default credential provider chain, as documented at
 http://docs.aws.amazon.com/sdk-for-go/api/aws/defaults/#CredChain. The default provider
@@ -39,8 +42,26 @@ chain looks for credentials in the following order:
 * Shared credentials file.
 * If your application is running on an Amazon EC2 instance, IAM role for Amazon EC2.
 
-This project does not contain any sensitve information hardcoded.
+This project does not contain any sensitive information hardcoded.
+
+This project expects a env variable containing SQL url. If you're using 
+a *nix, you should export the following env vars:
+
+```shell
+# AWS keys
+export AWS_REGION=[VALUE]
+export AWS_ACCESS_KEY_ID=[VALUE]
+export AWS_SECRET_ACCESS_KEY=[VALUE]
+
+# SQS URL
+export ISS_SQS_URL=[VALUE]
+```
+
+
+### Credits
+
+_soon_
 
 ### License
  
- [MIT](LICENSE.md)
+[MIT](LICENSE.md)
