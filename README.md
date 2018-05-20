@@ -78,8 +78,7 @@ export ISS_SQS_URL=[VALUE]
 
 
 ### Credits
-
-_soon_
+This project uses [http://open-notify.org/](Open-Notify) endpoints to retrieve current ISS position.
 
 ### License
  
