@@ -6,6 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/aws/aws-sdk-go/aws"
 	"fmt"
+	"encoding/json"
 )
 
 func Enqueue(queueUrl string, position iss.IssPosition) (messageId string, err error) {
@@ -16,19 +17,11 @@ func Enqueue(queueUrl string, position iss.IssPosition) (messageId string, err e
 
 	svc := sqs.New(sess)
 
+	json, err := json.Marshal(position)
+
 	result, err := svc.SendMessage(&sqs.SendMessageInput{
 		DelaySeconds: aws.Int64(10),
-		MessageAttributes: map[string]*sqs.MessageAttributeValue{
-			"Latitude": &sqs.MessageAttributeValue{
-				DataType:    aws.String("String"),
-				StringValue: aws.String(position.Latitude),
-			},
-			"Longitude": &sqs.MessageAttributeValue{
-				DataType:    aws.String("String"),
-				StringValue: aws.String(position.Longitude),
-			},
-		},
-		MessageBody: aws.String("ISS Coordinate"),
+		MessageBody: aws.String(string(json)),
 		QueueUrl:    &queueUrl,
 	})
 
