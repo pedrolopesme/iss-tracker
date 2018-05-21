@@ -17,14 +17,14 @@ func Enqueue(queueUrl string, position iss.IssPosition) (messageId string, err e
 
 	svc := sqs.New(sess)
 
-	json, err := json.Marshal(position)
+	jsonMessage, err := json.Marshal(position)
 	if err != nil {
 		return
 	}
 
 	result, err := svc.SendMessage(&sqs.SendMessageInput{
 		DelaySeconds: aws.Int64(10),
-		MessageBody: aws.String(string(json)),
+		MessageBody: aws.String(string(jsonMessage)),
 		QueueUrl:    &queueUrl,
 	})
 
