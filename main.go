@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/pedrolopesme/iss-tracker/iss"
 	"github.com/pedrolopesme/iss-tracker/sqs"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 	"os"
+	"github.com/aws/aws-sdk-go/service/lambda"
 )
 
 const (
@@ -49,8 +49,8 @@ func Track() (message string, err error) {
 		fmt.Sprintf(
 			"Great, iss coordinate recorded! Message id %s, Latitude %s, Longitude %s",
 			message,
-			issCoordinate.Longitude,
-			issCoordinate.Latitude))
+			issCoordinate.Latitude,
+			issCoordinate.Longitude))
 
 	return
 }
