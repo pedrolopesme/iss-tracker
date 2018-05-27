@@ -7,7 +7,7 @@ import (
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 	"os"
-	"github.com/aws/aws-sdk-go/service/lambda"
+	"github.com/aws/aws-lambda-go/lambda"
 )
 
 const (
@@ -55,6 +55,17 @@ func Track() (message string, err error) {
 	return
 }
 
+// If you want to run iss-tracker out of AWS Lambda environment, you'll need
+// to pass "local" as a flag to main func
+// ex: go run main.go local
 func main() {
+	if len(os.Args) > 0 {
+		if mode := os.Args[1]; mode == "local" {
+			log.Info("Running in local mode")
+			Track()
+			return
+		}
+	}
+	log.Info("Running in cloud mode")
 	lambda.Start(Track)
 }
