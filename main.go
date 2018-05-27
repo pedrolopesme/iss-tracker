@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/pedrolopesme/iss-tracker/iss"
 	"github.com/pedrolopesme/iss-tracker/sqs"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 	"os"
-	"github.com/aws/aws-lambda-go/lambda"
 )
 
 const (
