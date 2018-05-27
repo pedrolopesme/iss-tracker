@@ -59,7 +59,7 @@ func Track() (message string, err error) {
 // to pass "local" as a flag to main func
 // ex: go run main.go local
 func main() {
-	if len(os.Args) >= 1 {
+	if len(os.Args) >= 2 {
 		if mode := os.Args[1]; mode == "local" {
 			log.Info("Running in local mode")
 			Track()
