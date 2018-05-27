@@ -22,6 +22,10 @@ build-lambda:
 	mv main.zip dist/main.zip
 	rm main
 
+run-local:
+	@echo "Running ISS Tracker in local mode"
+	$(GOCMD) run main.go local
+
 test:
 	@echo "Running iss-tracker tests"
 	$(GOTEST) -v ./...
