@@ -47,7 +47,7 @@ func Track() (message string, err error) {
 
 	log.Info(
 		fmt.Sprintf(
-			"Great, iss coordinate recorded! Message id %s, Latitude %s, Longitude %s",
+			"Great, ISS coordinate recorded! Message id %s, Latitude %s, Longitude %s",
 			message,
 			issCoordinate.Latitude,
 			issCoordinate.Longitude))
