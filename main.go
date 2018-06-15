@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/aws/aws-sdk-go/service/lambda"
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/pedrolopesme/iss-tracker/iss"
 	"github.com/pedrolopesme/iss-tracker/sqs"
 	"github.com/pkg/errors"
@@ -37,15 +37,24 @@ func Track() (message string, err error) {
 
 	log.Info(
 		fmt.Sprintf(
-			"Great, iss coordinate recorded! Message id %s, Latitude %s, Longitude %s",
+			"Great, ISS coordinate recorded! Message id %s, Latitude %s, Longitude %s",
 			message,
-			issCoordinate.Longitude,
-			issCoordinate.Latitude
-		)
-	)
+			issCoordinate.Latitude,
+			issCoordinate.Longitude))
 	return
 }
 
+// If you want to run iss-tracker out of AWS Lambda environment, you'll need
+// to pass "local" as a flag to main func
+// ex: go run main.go local
 func main() {
+	if len(os.Args) >= 2 {
+		if mode := os.Args[1]; mode == "local" {
+			log.Info("Running in local mode")
+			Track()
+			return
+		}
+	}
+	log.Info("Running in cloud mode")
 	lambda.Start(Track)
 }

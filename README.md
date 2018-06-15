@@ -48,6 +48,7 @@ This project provides a Makefile with all common operations need to test and bui
  
  * setup: installs govendor package
  * vendoring: updates dependencies under vendor dir
+ * run-local: runs iss-tracker in local mode (i.e. outside AWS Lambda environment)
  * test: runs all tests
  * fmt: runs gofmt for all go files
  
@@ -78,8 +79,7 @@ export ISS_SQS_URL=[VALUE]
 
 
 ### Credits
-
-_soon_
+This project uses [http://open-notify.org/](Open-Notify) endpoints to retrieve current ISS position.
 
 ### License
  
