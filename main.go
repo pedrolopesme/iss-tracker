@@ -10,23 +10,13 @@ import (
 	"os"
 )
 
-const (
-	// URL to our queue
-	SQSEnvVar = "ISS_SQS_URL"
-)
-
-var (
-	// ErrSQSVarNotFound is returned when a ENV Var with ISS SQS URL wasn't found
-	ErrSQSVarNotFound = errors.New("Environment variable with ISS SQS URL not set. Please define a env var " + SQSEnvVar)
-)
-
 // Checks ISS Position and log it into an AWS SQS
 func Track() (message string, err error) {
-
+	// URL to our queue
 	// Retrieving ISS_SQS_URL from the ENV vars
-	queueURL := os.Getenv(SQSEnvVar)
+	queueURL := os.Getenv("ISS_SQS_URL")
 	if queueURL == "" {
-		err = ErrSQSVarNotFound
+		err = errors.New("Environment variable with ISS SQS URL not set. Please define a env var ISS_SQS_URL")
 		log.Error(err)
 		return
 	}
@@ -51,7 +41,6 @@ func Track() (message string, err error) {
 			message,
 			issCoordinate.Latitude,
 			issCoordinate.Longitude))
-
 	return
 }
 
